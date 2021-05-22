@@ -8,4 +8,8 @@
     <string name="camera_button">Camera Button</string>
     <string name="date">Date</string>
     <string name="move_to_detail">Move to Detail</string>
+    <string name="detail_image">detail image</string>
+    <string name="title">Item Name</string>
+    <string name="last_for">Last for : </string>
+    <string name="exp_date">Expired Date : </string>
 </resources>

@@ -8,15 +8,16 @@
     android:paddingTop="?attr/actionBarSize">
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/date_detail"
         style="@style/TitleFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/date"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="May 22, 2021" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_date"
@@ -26,9 +27,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date"
+        app:layout_constraintTop_toBottomOf="@+id/date_detail"
         app:layout_constraintVertical_bias="0.177"
-        tools:listitem="@layout/item_rv_main" />
+        tools:listitem="@layout/item_rv_detail" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
