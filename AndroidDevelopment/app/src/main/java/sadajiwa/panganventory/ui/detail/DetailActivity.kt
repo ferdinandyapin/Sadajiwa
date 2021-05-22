@@ -8,6 +8,10 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetail2Binding
 
+    companion object {
+        const val EXTRA_ITEM = "extra_item"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetail2Binding.inflate(layoutInflater)

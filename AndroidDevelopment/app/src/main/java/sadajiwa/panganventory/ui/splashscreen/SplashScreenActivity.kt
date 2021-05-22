@@ -7,7 +7,6 @@ import android.os.Looper
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import sadajiwa.panganventory.MainActivity
 import sadajiwa.panganventory.R
 import sadajiwa.panganventory.databinding.ActivitySplashScreenBinding
 
