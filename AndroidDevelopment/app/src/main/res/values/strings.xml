@@ -12,4 +12,5 @@
     <string name="title">Item Name</string>
     <string name="last_for">Last for : </string>
     <string name="exp_date">Expired Date : </string>
+    <string name="panganventory_logo">logo</string>
 </resources>
