@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1076458504128",
+    "firebase_url": "https://machinelearning-313314-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "machinelearning-313314",
+    "storage_bucket": "machinelearning-313314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076458504128:android:5e9d3af85e30159cbf5225",
+        "android_client_info": {
+          "package_name": "com.sadajiwa.panganventory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076458504128-9d2qu3gcv8trs6vn0575no1u8bal3mj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkySB0Zp9Adbf8Aqe0VS09oR5t04U9ut0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076458504128-9d2qu3gcv8trs6vn0575no1u8bal3mj4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

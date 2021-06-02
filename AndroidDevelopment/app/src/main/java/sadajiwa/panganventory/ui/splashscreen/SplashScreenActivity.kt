@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import sadajiwa.panganventory.R
 import sadajiwa.panganventory.databinding.ActivitySplashScreenBinding
+import sadajiwa.panganventory.ui.main.MainActivity
 
 
 class SplashScreenActivity : AppCompatActivity() {

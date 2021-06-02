@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sadajiwa.panganventory">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PanganVentory">
-        <activity android:name=".ui.detail.DetailActivity"></activity>
+        <activity android:name=".ui.add_inventory.AddInventoryActivity"></activity>
+        <activity android:name=".ui.notifications.NotificationActivity" />
+        <activity android:name=".ui.detail.DetailActivity" />
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
