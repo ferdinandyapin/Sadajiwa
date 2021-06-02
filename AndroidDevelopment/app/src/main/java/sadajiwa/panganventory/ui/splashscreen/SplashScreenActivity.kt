@@ -18,30 +18,30 @@ class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        with(binding) {
-            pvLogo.startAnimation(
-                AnimationUtils.loadAnimation(
-                    this@SplashScreenActivity,
-                    R.anim.splash_in
-                )
-            )
-            Handler(Looper.getMainLooper()).postDelayed({
-                pvLogo.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        this@SplashScreenActivity,
-                        R.anim.splash_out
-                    )
-                )
-                Handler(Looper.getMainLooper()).postDelayed({
-                    pvLogo.visibility = View.GONE
-                    startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
-                    finish()
-                }, 500)
-            }, 1500)
-        }
+//        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
+//
+//        with(binding) {
+//            pvLogo.startAnimation(
+//                AnimationUtils.loadAnimation(
+//                    this@SplashScreenActivity,
+//                    R.anim.splash_in
+//                )
+//            )
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                pvLogo.startAnimation(
+//                    AnimationUtils.loadAnimation(
+//                        this@SplashScreenActivity,
+//                        R.anim.splash_out
+//                    )
+//                )
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    pvLogo.visibility = View.GONE
+//                    startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+//                    finish()
+//                }, 500)
+//            }, 1500)
+//        }
 
     }
 }

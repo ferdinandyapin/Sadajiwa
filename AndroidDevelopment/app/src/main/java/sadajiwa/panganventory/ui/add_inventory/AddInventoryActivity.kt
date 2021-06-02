@@ -26,6 +26,7 @@ class AddInventoryActivity : AppCompatActivity() {
             }
 
             finishButton.setOnClickListener {
+
                 Intent(this@AddInventoryActivity, DetailActivity::class.java).also {
                     startActivity(it)
                 }
