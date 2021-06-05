@@ -14,4 +14,10 @@
     <string name="exp_date">Expired Date : </string>
     <string name="panganventory_logo">logo</string>
     <string name="add_more_button">add more item</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">login</string>
+    <string name="doesn_t_have_an_account">doesn\'t have an account?</string>
+    <string name="register">Register</string>
+    <string name="already_have_an_account">already have an account?</string>
 </resources>

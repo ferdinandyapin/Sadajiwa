@@ -3,6 +3,7 @@ package sadajiwa.panganventory.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import sadajiwa.panganventory.R
 import sadajiwa.panganventory.databinding.ActivityLoginBinding
 import sadajiwa.panganventory.ui.main.MainActivity
+import kotlin.math.log
 
 class Login : AppCompatActivity() {
 
@@ -29,9 +31,13 @@ class Login : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        binding.loginbutton.setOnClickListener {
+            checkLogin()
+        }
+
     }
 
-    fun login(view: View) {
+    private fun login() {
         with(binding) {
             val email = binding.loginemail.text.toString()
             val password = binding.loginpass.text.toString()
@@ -47,5 +53,24 @@ class Login : AppCompatActivity() {
                 Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun checkLogin() {
+        if (binding.loginemail.text.toString().isEmpty()) {
+            binding.loginemail.error = "Please enter email"
+            binding.loginemail.requestFocus()
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(binding.loginemail.text.toString()).matches()) {
+            binding.loginemail.error = "Please enter valid email"
+            binding.loginemail.requestFocus()
+            return
+        }
+        if (binding.loginpass.text.toString().isEmpty()) {
+            binding.loginpass.error = "Please enter password"
+            binding.loginpass.requestFocus()
+            return
+        }
+        login()
     }
 }

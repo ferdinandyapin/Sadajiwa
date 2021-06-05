@@ -2,6 +2,7 @@ package sadajiwa.panganventory.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,9 +26,13 @@ class Register : AppCompatActivity() {
         }
 
         auth = FirebaseAuth.getInstance()
+
+        binding.regbutton.setOnClickListener {
+            checkRegisterUser()
+        }
     }
 
-    fun register(view : View) {
+    private fun register() {
         with(binding) {
             val email = regemail.text.toString()
             val password = regpass.textAlignment.toString()
@@ -43,5 +48,24 @@ class Register : AppCompatActivity() {
                 Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun checkRegisterUser() {
+        if (binding.regemail.text.toString().isEmpty()) {
+            binding.regemail.error = "Please enter email"
+            binding.regemail.requestFocus()
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(binding.regemail.text.toString()).matches()) {
+            binding.regemail.error = "Please enter valid email"
+            binding.regemail.requestFocus()
+            return
+        }
+        if (binding.regpass.text.toString().isEmpty()) {
+            binding.regpass.error = "Please enter password"
+            binding.regpass.requestFocus()
+            return
+        }
+        register()
     }
 }

@@ -15,32 +15,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PanganVentory">
-        <activity android:name=".ui.login.Register"></activity>
-        <activity android:name=".ui.login.Login" />
+        <activity android:name=".ui.login.Register" />
+        <activity android:name=".ui.login.Login">
+
+        </activity>
         <activity android:name=".ui.add_inventory.AddInventoryActivity" />
         <activity android:name=".ui.notifications.NotificationActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
-            <!--
-             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-            -->
-        </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/app_name"/>
 
         <meta-data
             android:name="preloaded_fonts"
