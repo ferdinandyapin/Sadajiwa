@@ -20,7 +20,7 @@
         tools:text="May 22, 2021" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_date"
+        android:id="@+id/rv_detail"
         android:layout_width="wrap_content"
         android:layout_height="500dp"
         app:layout_constraintBottom_toBottomOf="parent"

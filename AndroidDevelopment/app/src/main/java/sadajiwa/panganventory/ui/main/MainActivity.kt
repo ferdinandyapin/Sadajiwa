@@ -2,7 +2,6 @@ package sadajiwa.panganventory.ui.main
 
 import android.app.Activity
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,17 +11,20 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.FirebaseApp
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import sadajiwa.panganventory.R
+import sadajiwa.panganventory.adapter.HomeAdapter
 import sadajiwa.panganventory.databinding.ActivityMainBinding
-import sadajiwa.panganventory.model.ModelAdd
+import sadajiwa.panganventory.model.ModelDate
 import sadajiwa.panganventory.ui.add_inventory.AddActivity
-import sadajiwa.panganventory.ui.add_inventory.AddInventoryActivity
+import sadajiwa.panganventory.ui.detail.DetailActivity
 import sadajiwa.panganventory.ui.notifications.NotificationActivity
 import java.io.IOException
 import java.util.*
@@ -32,6 +34,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var imguri : Uri
     private lateinit var mediaType: MediaType
+    private lateinit var rvDates : RecyclerView
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +44,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        
+        //ambil data
+        val username = intent.getStringExtra("email").toString()
+        Log.d("GGGGGGGGGGGG",username)
+        if(username!=null)
+        {
+        GetData(username)
+        }
 
+        //kalo klik add
         binding.floatingActionButton.setOnClickListener {
             Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                 takePictureIntent.resolveActivity(packageManager)?.also {
@@ -48,7 +60,52 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    private fun GetData(username: String) {
+        var allDate = ArrayList<ModelDate>()
+        val ref: DatabaseReference = FirebaseDatabase.getInstance("https://machinelearning-313314-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("User/$username/Data")
+        ref.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    for (item in snapshot.children){
+                        val date = ModelDate()
+                        date.date = item.key.toString()
+                        Log.d("DATA",item.key.toString())
+                        allDate.add(date)
+                        showRecyclerList(allDate)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+    }
+
+    private fun showRecyclerList(allDate: ArrayList<ModelDate>) {
+        rvDates = findViewById(R.id.rv_date)
+        rvDates.layoutManager = LinearLayoutManager(this)
+        val listAdapter = HomeAdapter(this,allDate)
+        rvDates.adapter = listAdapter
+
+        listAdapter.setOnItemClickCallBack(object :HomeAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: ModelDate) {
+                getTwo(data.date)
+            }
+        })
+
+    }
+
+    private fun getTwo(date: String) {
+        val email = intent.getStringExtra("email")
+        val intent = Intent(this,DetailActivity::class.java)
+        intent.putExtra("email",email)
+        intent.putExtra("datedetail",date)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,15 +130,16 @@ class MainActivity : AppCompatActivity() {
                         }
                         .addOnSuccessListener {
                             Log.d("upload to storage","success")
-                            postjson(renamejpg)
                             //download url
                             storage.downloadUrl.addOnSuccessListener {
                                 val url = it.toString()
                                 Log.d("url",url)
-                                val intent = Intent(this, AddActivity::class.java)
-                                intent.putExtra("urlimage",url)
-                                startActivity(intent)
+                                //post json
+                                postjson(renamejpg,url)
                             }
+
+
+
                         }
                 }
             } else -> {
@@ -90,9 +148,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun postjson(url: String) {
+    private fun postjson(rename: String, url: String) {
         val jsonObject = JSONObject()
-        jsonObject.put("IMPATH",url)
+        jsonObject.put("IMPATH",rename)
         mediaType = "application/json; charset=utf-8".toMediaType()
         val okHttpClient = OkHttpClient()
         val text = jsonObject.toString().toRequestBody(mediaType)
@@ -118,8 +176,14 @@ class MainActivity : AppCompatActivity() {
                 Log.d("getfruitsuccess",resultFruit)
 
                 //send fruit to add activity
+                val email = intent.getStringExtra("email")
+                if (email != null) {
+                    Log.d("getemailsuccess",email)
+                }
                 val sendFruit = Intent(this@MainActivity,AddActivity::class.java)
+                sendFruit.putExtra("email",email)
                 sendFruit.putExtra("resultFruit",resultFruit)
+                sendFruit.putExtra("urlimage",url)
                 startActivity(sendFruit)
 
             }

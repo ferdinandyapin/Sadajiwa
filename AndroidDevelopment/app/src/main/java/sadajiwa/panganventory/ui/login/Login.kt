@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import sadajiwa.panganventory.R
+
 import sadajiwa.panganventory.databinding.ActivityLoginBinding
 import sadajiwa.panganventory.ui.main.MainActivity
 import kotlin.math.log
@@ -45,6 +45,7 @@ class Login : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     Intent(this@Login, MainActivity::class.java).also {
+                        it.putExtra("email",auth.uid)
                         startActivity(it)
                     }
                     finish()

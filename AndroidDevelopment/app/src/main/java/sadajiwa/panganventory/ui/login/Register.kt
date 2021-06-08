@@ -7,7 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import sadajiwa.panganventory.databinding.ActivityRegisterBinding
+import sadajiwa.panganventory.model.AddDateChild
 import sadajiwa.panganventory.ui.main.MainActivity
 
 class Register : AppCompatActivity() {
@@ -35,11 +37,12 @@ class Register : AppCompatActivity() {
     private fun register() {
         with(binding) {
             val email = regemail.text.toString()
-            val password = regpass.textAlignment.toString()
+            val password = regpass.text.toString()
 
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful){
                     Intent(this@Register, MainActivity::class.java).also {
+                        it.putExtra("email",auth.uid)
                         startActivity(it)
                     }
                     finish()

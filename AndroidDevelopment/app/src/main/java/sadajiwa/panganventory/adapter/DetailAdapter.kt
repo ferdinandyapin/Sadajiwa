@@ -1,5 +1,6 @@
 package sadajiwa.panganventory.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import sadajiwa.panganventory.R
 import sadajiwa.panganventory.model.ModelDetail
 
-class DetailAdapter(private val listDetail: ArrayList<ModelDetail>) : RecyclerView.Adapter<DetailAdapter.DetailViewHolder>() {
+class DetailAdapter(context: Context, private val listDetail: ArrayList<ModelDetail>) : RecyclerView.Adapter<DetailAdapter.DetailViewHolder>() {
 
     class DetailViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         var dimage: ImageView = itemView.findViewById(R.id.img_poster)
@@ -30,10 +31,10 @@ class DetailAdapter(private val listDetail: ArrayList<ModelDetail>) : RecyclerVi
         holder.dtitle.text = details.name
         holder.dlast.text = details.last
         holder.dexp.text = details.exp
-        Glide.with(holder.itemView.context)
-            .load(details.image)
-            .apply(RequestOptions().override(100,100))
-            .into(holder.dimage)
+//        Glide.with(holder.itemView.context)
+//            .load(details.image)
+//            .apply(RequestOptions().override(100,100))
+//            .into(holder.dimage)
     }
 
     override fun getItemCount(): Int {

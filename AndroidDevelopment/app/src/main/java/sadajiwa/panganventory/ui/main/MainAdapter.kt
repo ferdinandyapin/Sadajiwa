@@ -25,7 +25,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
                 rvDate.text = item.date
                 rvArrow.setOnClickListener{
                     val intent = Intent(rvArrow.context, DetailActivity::class.java).apply {
-                        putExtra(DetailActivity.EXTRA_ITEM, item.date)
+                        //putExtra(DetailActivity.EXTRA_ITEM, item.date)
                     }
                     it.context.startActivity(intent)
                 }

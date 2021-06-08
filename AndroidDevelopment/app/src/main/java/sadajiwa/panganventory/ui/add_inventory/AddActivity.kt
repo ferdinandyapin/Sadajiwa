@@ -1,26 +1,17 @@
 package sadajiwa.panganventory.ui.add_inventory
 
-import android.content.Context
-import android.os.Build
+
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideBuilder
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.module.AppGlideModule
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.signature.ObjectKey
+import com.google.firebase.database.FirebaseDatabase
 import sadajiwa.panganventory.R
 import sadajiwa.panganventory.databinding.ActivityAddBinding
-import sadajiwa.panganventory.databinding.ActivityAddInventoryBinding
-import sadajiwa.panganventory.databinding.ActivityMainBinding
+import sadajiwa.panganventory.model.AddDateChild
+import sadajiwa.panganventory.ui.main.MainActivity
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 import java.util.*
 
 class AddActivity : AppCompatActivity() {
@@ -41,20 +32,49 @@ class AddActivity : AppCompatActivity() {
         if (url != null) {
             Log.d("isurlhere?",url)
         }
-        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+        val email = intent.getStringExtra("email")
+        if (email != null) {
+            Log.d("isemailhere?",email)
+        }
 
+
+        val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
         with(binding){
             addname.text = resultFruit
             addtodaydate.text = currentDate
 
-
-            //belom bisa get gambar gatau kenapa
-//            if(url != null) {
-//                Glide.with(this@AddActivity)
-//                    .load(url)
-//                    .into(photo)
-//            }
+            if(url != null) {
+                Glide.with(this@AddActivity)
+                    .load(url.toString())
+                    .override(400,250)
+                    .centerCrop()
+                    .into(photo)
+            }
         }
 
+        binding.finishButton.setOnClickListener{
+            val expDate = binding.addexpdate.getText().toString()
+            val alertDate = binding.addalertdate.getText().toString()
+            addFruit(resultFruit,alertDate,expDate,email,currentDate)
+            val intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("email",email)
+            startActivity(intent)
+        }
+
+    }
+
+    private fun addFruit(
+        resultFruit: String?,
+        alertDate: String,
+        expDate: String,
+        email: String?,
+        currentDate: String
+    ) {
+        val add = FirebaseDatabase.getInstance("https://machinelearning-313314-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("User/$email/Data/$currentDate/$resultFruit")
+        val addDateChild = AddDateChild(
+            expDate = expDate,
+            alertDate = alertDate
+        )
+        add.setValue(addDateChild)
     }
 }

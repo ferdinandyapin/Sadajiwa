@@ -1,5 +1,6 @@
 package sadajiwa.panganventory.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import sadajiwa.panganventory.R
 import sadajiwa.panganventory.model.ModelDate
 
-class HomeAdapter(private val listDate: ArrayList<ModelDate>) : RecyclerView.Adapter<HomeAdapter.DateViewHolder>() {
+class HomeAdapter(context: Context, private val listDate: ArrayList<ModelDate>) : RecyclerView.Adapter<HomeAdapter.DateViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallBack (onItemClickCallback: OnItemClickCallback){
