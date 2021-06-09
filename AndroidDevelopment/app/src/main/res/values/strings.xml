@@ -20,4 +20,5 @@
     <string name="doesn_t_have_an_account">doesn\'t have an account?</string>
     <string name="register">Register</string>
     <string name="already_have_an_account">already have an account?</string>
+    <string name="app_notif">Sudah ada bahan makananmua yang mendekati tanggal kadaluarsa. Habiskan ya!</string>
 </resources>

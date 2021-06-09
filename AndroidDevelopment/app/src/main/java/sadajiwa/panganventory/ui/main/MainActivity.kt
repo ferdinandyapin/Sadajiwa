@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ButtonBarLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
@@ -36,8 +37,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mediaType: MediaType
     private lateinit var rvDates : RecyclerView
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         //ambil data
         val username = intent.getStringExtra("email").toString()
-        Log.d("GGGGGGGGGGGG",username)
+        Log.d("get username",username)
         if(username!=null)
         {
         GetData(username)
@@ -199,9 +198,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_notifications -> {
-                Intent(this, NotificationActivity::class.java).also {
-                    startActivity(it)
-                }
+                val email = intent.getStringExtra("email")
+                val intent = Intent(this, NotificationActivity::class.java)
+                intent.putExtra("email",email)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
