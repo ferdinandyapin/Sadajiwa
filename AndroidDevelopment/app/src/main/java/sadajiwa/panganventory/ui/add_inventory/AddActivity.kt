@@ -60,6 +60,11 @@ class AddActivity : AppCompatActivity() {
             intent.putExtra("email",email)
             startActivity(intent)
         }
+        binding.back.setOnClickListener{
+            val intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("email",email)
+            startActivity(intent)
+        }
 
     }
 
