@@ -110,41 +110,75 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        when(requestCode) {
-            REQUEST_IMAGE_CAPTURE -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    //progressDialog
-                    val pd = ProgressDialog(this)
-                    pd.setTitle("Uploading image..")
-                    pd.show()
+        if (resultCode != RESULT_CANCELED) {
+            Log.d("requestCodee", requestCode.toString())
 
-                    imguri = data.data!!
-                    val rename = UUID.randomUUID().toString()
-                    val renamejpg = "$rename.jpg"
-                    val storage = FirebaseStorage.getInstance("gs://ml-model-android").getReference("$renamejpg")
-                    storage.putFile(imguri)
-                        .addOnProgressListener { pl ->
-                            val progress =(100.00 * pl.bytesTransferred / pl.totalByteCount)
-                            pd.setMessage("Progress ${progress.toInt()}%")
-                        }
-                        .addOnSuccessListener {
-                            Log.d("upload to storage","success")
-                            //download url
-                            storage.downloadUrl.addOnSuccessListener {
-                                val url = it.toString()
-                                Log.d("url",url)
-                                //post json
-                                postjson(renamejpg,url)
+            when(requestCode) {
+                REQUEST_IMAGE_CAPTURE -> {
+                    if (resultCode == Activity.RESULT_OK && data != null) {
+                        //progressDialog
+                        val pd = ProgressDialog(this)
+                        pd.setTitle("Uploading image..")
+                        pd.show()
+
+                        imguri = data.data!!
+//                        imguri = data.get
+                        val rename = UUID.randomUUID().toString()
+                        val renamejpg = "$rename.jpg"
+                        val storage = FirebaseStorage.getInstance("gs://ml-model-android").getReference("$renamejpg")
+                        storage.putFile(imguri)
+                            .addOnProgressListener { pl ->
+                                val progress =(100.00 * pl.bytesTransferred / pl.totalByteCount)
+                                pd.setMessage("Progress ${progress.toInt()}%")
                             }
-
-
-
-                        }
-                }
-            } else -> {
+                            .addOnSuccessListener {
+                                Log.d("upload to storage","success")
+                                //download url
+                                storage.downloadUrl.addOnSuccessListener {
+                                    val url = it.toString()
+                                    Log.d("url",url)
+                                    //post json
+                                    postjson(renamejpg,url)
+                                }
+                            }
+                    }
+                } else -> {
                 Toast.makeText(this, "Unrecognized request code", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+//        when(requestCode) {
+//            REQUEST_IMAGE_CAPTURE -> {
+//                if (resultCode == Activity.RESULT_OK && data != null) {
+//                    //progressDialog
+//                    val pd = ProgressDialog(this)
+//                    pd.setTitle("Uploading image..")
+//                    pd.show()
+//
+//                    imguri = data.data!!
+//                    val rename = UUID.randomUUID().toString()
+//                    val renamejpg = "$rename.jpg"
+//                    val storage = FirebaseStorage.getInstance("gs://ml-model-android").getReference("$renamejpg")
+//                    storage.putFile(imguri)
+//                        .addOnProgressListener { pl ->
+//                            val progress =(100.00 * pl.bytesTransferred / pl.totalByteCount)
+//                            pd.setMessage("Progress ${progress.toInt()}%")
+//                        }
+//                        .addOnSuccessListener {
+//                            Log.d("upload to storage","success")
+//                            //download url
+//                            storage.downloadUrl.addOnSuccessListener {
+//                                val url = it.toString()
+//                                Log.d("url",url)
+//                                //post json
+//                                postjson(renamejpg,url)
+//                            }
+//                        }
+//                }
+//            } else -> {
+//                Toast.makeText(this, "Unrecognized request code", Toast.LENGTH_SHORT).show()
+//            }
+//        }
     }
 
     private fun postjson(rename: String, url: String) {
