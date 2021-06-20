@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imguri : Uri
     private lateinit var mediaType: MediaType
     private lateinit var rvDates : RecyclerView
+    private lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //ambil data
-        val username = intent.getStringExtra("email").toString()
+        username = intent.getStringExtra("email").toString()
         Log.d("get username",username)
         if(username!=null)
         {
@@ -100,9 +101,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getTwo(date: String) {
-        val email = intent.getStringExtra("email")
+        username = intent.getStringExtra("email").toString()
         val intent = Intent(this,DetailActivity::class.java)
-        intent.putExtra("email",email)
+        intent.putExtra("email",username)
         intent.putExtra("datedetail",date)
         startActivity(intent)
     }

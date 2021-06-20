@@ -41,6 +41,7 @@ class Register : AppCompatActivity() {
 
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful){
+
                     Intent(this@Register, MainActivity::class.java).also {
                         it.putExtra("email",auth.uid)
                         startActivity(it)

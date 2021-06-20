@@ -34,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
         var alldetail = ArrayList<ModelDetail>()
         val ref: DatabaseReference =
             FirebaseDatabase.getInstance("https://machinelearning-313314-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                .getReference("User/$username/Data/08-06-2021")
+                .getReference("User/$username/Data/$detaildate")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {

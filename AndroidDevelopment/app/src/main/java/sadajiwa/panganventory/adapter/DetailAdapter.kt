@@ -31,10 +31,34 @@ class DetailAdapter(context: Context, private val listDetail: ArrayList<ModelDet
         holder.dtitle.text = details.name
         holder.dlast.text = details.last
         holder.dexp.text = details.exp
-//        Glide.with(holder.itemView.context)
-//            .load(details.image)
-//            .apply(RequestOptions().override(100,100))
-//            .into(holder.dimage)
+        val name = details.name
+        when(name) {
+            "Broccoli" -> {
+                Glide.with(holder.itemView.context)
+                    .load(R.drawable.broccoli)
+                    .apply(RequestOptions().override(100, 100))
+                    .into(holder.dimage)
+            }
+            "Apple" -> {
+                Glide.with(holder.itemView.context)
+                    .load(R.drawable.apple)
+                    .apply(RequestOptions().override(100, 100))
+                    .into(holder.dimage)
+            }
+            "Banana" -> {
+                Glide.with(holder.itemView.context)
+                    .load(R.drawable.banana)
+                    .apply(RequestOptions().override(100, 100))
+                    .into(holder.dimage)
+            }
+            "Orange" -> {
+                Glide.with(holder.itemView.context)
+                    .load(R.drawable.orange)
+                    .apply(RequestOptions().override(100, 100))
+                    .into(holder.dimage)
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
